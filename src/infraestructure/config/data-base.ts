@@ -11,8 +11,13 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
+  schema:"public",
   entities: [User],
   synchronize: true,
+  logging: true,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 export const initDB = async () => {
@@ -20,6 +25,7 @@ export const initDB = async () => {
     await AppDataSource.initialize();
     console.log('Database connected');
   } catch (error) {
-    console.error('Database connection error:', error);
+    console.error("Error connecting to the database:", error);
+    process.exit(1);
   }
 };

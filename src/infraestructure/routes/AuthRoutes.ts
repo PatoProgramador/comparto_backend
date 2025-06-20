@@ -14,6 +14,15 @@ router.post("/login", async (requestAnimationFrame, res) =>{
   }
 });
 
-// router.post('/register', AuthController.register);
+router.post('/register', async (requestAnimationFrame, res) =>{
+  try{
+    await AuthController.register(requestAnimationFrame, res);
+  } catch (error) {
+    res.status(400).json({
+      message: "Error creating user",
+      error: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+});
 
 export default router;

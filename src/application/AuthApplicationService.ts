@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-// import { User } from '../infrastructure/entities/User';
+import { User } from '../infraestructure/entities/User';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
 
 export class AuthService {
-  static generateToken(): string {
-    return jwt.sign({ id: 'test', username: 'pato' }, JWT_SECRET, {
+  static generateToken(user: User): string {
+    return jwt.sign({ id: user.id_usuario, username: user.email }, JWT_SECRET, {
       expiresIn: '1d',
     });
   }

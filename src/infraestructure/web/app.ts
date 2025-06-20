@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
 import AuthRoutes from "../routes/AuthRoutes";
+import UserRoutes from "../routes/UserRoutes";
 
 class App{
   private app: express.Application;
@@ -13,7 +14,7 @@ class App{
     this.app.use(express.json());
   }
   private routes():void {
-    // this.app.use("/api", userRoutes);
+    this.app.use("/api/users", UserRoutes);
     this.app.use('/api/auth', AuthRoutes);
   }
 

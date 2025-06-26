@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
+import { AuthService } from '../../application/AuthApplicationService';
 
 export function authenticateToken(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers['authorization'];
@@ -10,7 +8,8 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
   if (!token) return res.sendStatus(401);
 
   try {
-    const user = jwt.verify(token, JWT_SECRET);
+    const user = AuthService.verifyToken(token);
+    console.log(user);
     (req as any).user = user;
     next();
   } catch (err) {

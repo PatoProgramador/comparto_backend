@@ -1,8 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+
+export enum TipoUsuario {
+  DONANTE = 'donante',
+  RECEPTOR = 'receptor',
+}
 
 @Entity({ name: "usuarios" })
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id_usuario!: string;
 
   @Column({ type: "varchar", length: 100 })
@@ -29,10 +34,14 @@ export class User {
   @Column({ type: "varchar", length: 100, nullable: true })
   departamento?: string;
 
-  @Column({ type: "varchar", length: 50 })
-  tipo_usuario!: string;
+  @Column({
+    type: "enum",
+    enum: TipoUsuario,
+    enumName: "tipo_usuario_enum",
+  })
+  tipo_usuario!: TipoUsuario;
 
-  @Column({ type: "timestamp" })
+  @Column({ type: "timestamp with time zone", default: () => 'CURRENT_TIMESTAMP' })
   fecha_registro!: Date;
 
   @Column({ type: "boolean", default: true })

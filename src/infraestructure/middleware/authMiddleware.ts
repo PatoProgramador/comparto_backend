@@ -9,7 +9,6 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
 
   try {
     const user = AuthService.verifyToken(token);
-    console.log(user);
     (req as any).user = user;
     next();
   } catch (err) {

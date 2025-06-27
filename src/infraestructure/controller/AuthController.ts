@@ -16,7 +16,7 @@ export class AuthController {
     if (!isMatch) return res.status(401).json({ message: 'Contraseña incorrecta' });
 
     const token = AuthService.generateToken(user);
-    res.json({ token });
+    res.json({ token, "userId": user.id_usuario });
   }
 
   static async register(req: Request, res: Response) {

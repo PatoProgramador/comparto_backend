@@ -1,9 +1,10 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from "express";
 import AuthRoutes from "../routes/AuthRoutes";
 import UserRoutes from "../routes/UserRoutes";
-import cors from 'cors';
+import DonacionRoutes from "../routes/DonacionRoutes";
+import cors from "cors";
 
-class App{
+class App {
   private app: express.Application;
   constructor() {
     this.app = express();
@@ -13,14 +14,15 @@ class App{
 
   private middlewares(): void {
     this.app.use(express.json());
-    this.app.use(cors({ origin: '*' }));
+    this.app.use(cors({ origin: "*" }));
   }
-  private routes():void {
+  private routes(): void {
     this.app.use("/api/users", UserRoutes);
-    this.app.use('/api/auth', AuthRoutes);
+    this.app.use("/api/auth", AuthRoutes);
+    this.app.use("/api/donaciones", DonacionRoutes);
   }
 
-  getApp(){
+  getApp() {
     return this.app;
   }
 }

@@ -1,13 +1,14 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import { User } from '../infraestructure/entities/User';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { User } from "../infraestructure/entities/User";
 
-const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
+const JWT_SECRET = process.env.JWT_SECRET || "changeme";
+console.log("AuthService JWT_SECRET (for signing):", JWT_SECRET);
 
 export class AuthService {
   static generateToken(user: User): string {
     return jwt.sign({ id: user.id_usuario, username: user.email }, JWT_SECRET, {
-      expiresIn: '1d',
+      expiresIn: "1d",
     });
   }
 
@@ -15,7 +16,10 @@ export class AuthService {
     return jwt.verify(token, JWT_SECRET);
   }
 
-  static async comparePasswords(password: string, hash: string): Promise<boolean> {
+  static async comparePasswords(
+    password: string,
+    hash: string
+  ): Promise<boolean> {
     return await bcrypt.compare(password, hash);
   }
 

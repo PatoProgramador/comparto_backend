@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import AuthRoutes from "../routes/AuthRoutes";
 import UserRoutes from "../routes/UserRoutes";
 import DonacionRoutes from "../routes/DonacionRoutes";
+import NotificacionRoutes from "../routes/NotificacionRoutes";
 import cors from "cors";
 
 class App {
@@ -20,6 +21,7 @@ class App {
     this.app.use("/api/users", UserRoutes);
     this.app.use("/api/auth", AuthRoutes);
     this.app.use("/api/donaciones", DonacionRoutes);
+    this.app.use("/api/notificaciones", NotificacionRoutes);
   }
 
   getApp() {

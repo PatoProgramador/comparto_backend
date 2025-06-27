@@ -3,12 +3,22 @@ import { UserAdapter } from "../adapter/UserAdapter";
 import { UserApplicationService } from "../../application/UserApplicationService";
 import { UserController } from "../controller/UserController";
 import { authenticateToken } from "../middleware/authMiddleware";
+import { NotificacionController } from "../controller/NotificacionController";
+import { NotificacionApplicationService } from "../../application/NotificacionApplicationService";
+import { NotificacionAdapter } from "../adapter/NotificacionAdapter";
 
 const router = Router();
 
 const userAdapter = new UserAdapter();
 const userAppServise = new UserApplicationService(userAdapter);
 const userController = new UserController(userAppServise);
+const notificacionAdapter = new NotificacionAdapter();
+const notificacionApplicationService = new NotificacionApplicationService(
+  notificacionAdapter
+);
+const notificacionController = new NotificacionController(
+  notificacionApplicationService
+);
 
 router.get("/users", async (req, res) => {
   try {
@@ -31,6 +41,10 @@ router.get("/users/:id", async (req, res) => {
     });
   }
 });
+
+router.get("/:idUsuario/notificaciones", authenticateToken, (req, res) =>
+  notificacionController.getNotificacionesByUserId(req, res)
+);
 
 router.patch("/users/:id", async (req, res) => {
   try {

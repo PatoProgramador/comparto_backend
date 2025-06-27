@@ -2,6 +2,7 @@ import { Router } from "express";
 import { UserAdapter } from "../adapter/UserAdapter";
 import { UserApplicationService } from "../../application/UserApplicationService";
 import { UserController } from "../controller/UserController";
+import { authenticateToken } from "../middleware/authMiddleware";
 
 const router = Router();
 

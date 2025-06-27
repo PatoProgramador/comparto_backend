@@ -1,8 +1,16 @@
+<<<<<<< Updated upstream
 import { DataSource } from "typeorm";
 import { User } from "../entities/User";
 import { DonacionEntity } from "../entities/Donacion";
 import { NotificacionEntity } from "../entities/Notificacion";
 import dotenv from "dotenv";
+=======
+import { DataSource } from 'typeorm';
+import { User } from '../entities/User';
+import dotenv from 'dotenv';
+import { DonationRequest } from '../entities/Donation_Request';
+import { Ubications } from '../entities/Ubications';
+>>>>>>> Stashed changes
 
 dotenv.config();
 
@@ -13,8 +21,13 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
+<<<<<<< Updated upstream
   schema: "public",
   entities: [User, DonacionEntity, NotificacionEntity],
+=======
+  schema:"public",
+  entities: [User, DonationRequest,Ubications],
+>>>>>>> Stashed changes
   synchronize: true,
   logging: true,
   ssl: {

@@ -57,7 +57,7 @@ export class UserAdapter implements UserPort {
   async updateUser(id: string, user: Partial<UserDomain>): Promise<boolean> {
     try {
       const existingUser = await this.userRepository.findOne({
-        where: {id_usuario: id},
+        where: {id_usuario: id, activo: true},
       });
 
       if (!existingUser) return false;
@@ -100,7 +100,7 @@ export class UserAdapter implements UserPort {
   async getUserById(id: string): Promise<UserDomain | null> {
     try {
       const user = await this.userRepository.findOne({
-        where: {id_usuario: id},
+        where: {id_usuario: id, activo: true},
       });
       return user ? this.toDomain(user) : null;
     } catch (error) {
@@ -111,7 +111,7 @@ export class UserAdapter implements UserPort {
 
   async getUserByEmail(email: string): Promise<UserEntity| null> {
     try{
-      const user = await this.userRepository.findOne({where:{email:email}});
+      const user = await this.userRepository.findOne({where:{email:email, activo: true}});
       return user ? user: null;
     } catch (error) {
       console.error("Error getting user by email:", error);
@@ -121,7 +121,7 @@ export class UserAdapter implements UserPort {
 
   async getAllUsers(): Promise<UserDomain[]> {
     try{
-      const users = await this.userRepository.find();
+      const users = await this.userRepository.find({where:{activo: true}});
       return users.map(this.toDomain);
     } catch (error) {
       console.error("Error getting all users:", error);
